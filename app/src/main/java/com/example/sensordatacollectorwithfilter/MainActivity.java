@@ -421,9 +421,12 @@ public class MainActivity extends FragmentActivity
         tdate.setText(dateCurrent);
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
 
-            x = filter(event.values[0]);
-            y = filter(event.values[1]);
-            z = filter(event.values[2]);
+//            x = filter(event.values[0]);
+//            y = filter(event.values[1]);
+//            z = filter(event.values[2]);
+            x = event.values[0];
+            y = event.values[1];
+            z = event.values[2];
 
             x_val = String.valueOf(x);
             y_val = String.valueOf(y);
@@ -434,9 +437,13 @@ public class MainActivity extends FragmentActivity
         }
         if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
 
-            x_gy = filter(event.values[0]);
-            y_gy = filter(event.values[1]);
-            z_gy = filter(event.values[2]);
+//            x_gy = filter(event.values[0]);
+//            y_gy = filter(event.values[1]);
+//            z_gy = filter(event.values[2]);
+
+            x_gy = event.values[0];
+            y_gy = event.values[1];
+            z_gy = event.values[2];
 
             xG_val = String.valueOf(x_gy);
             yG_val = String.valueOf(y_gy);
