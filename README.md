@@ -11,5 +11,5 @@ Feature:
 - Open to modify which sensor to collect.
 - Kalman filter is available inside the code (free to use)
 
-<img src="https://github.com/farhantandia/WearableSensorDataCollector/blob/master/Capture.PNG" width="250"/>
+<img src="https://github.com/farhantandia/WearableSensorDataCollector/blob/master/Capture.PNG"/>
 
