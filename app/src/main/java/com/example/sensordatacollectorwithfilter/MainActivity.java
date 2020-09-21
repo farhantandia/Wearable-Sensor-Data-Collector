@@ -122,7 +122,7 @@ public class MainActivity extends FragmentActivity
         //create a list of items for the spinner.
         String[] items1 = new String[]{"20 dps", "25 dps", "30 dps"};
 //        String[] items2 = new String[]{"1.5 min", "2 min", "3 min"};
-        String[] items3 = new String[]{"walk", "stand", "jump","fall","breaststroke","backstroke"};
+        String[] items3 = new String[]{"walk", "stand", "jump","fall","breaststroke","backstroke","crawl","butterfly"};
         //create an adapter to describe how the items are displayed, adapters are used in several places in android.
         //There are multiple variations of this, but this is the basic variant.
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items1);
