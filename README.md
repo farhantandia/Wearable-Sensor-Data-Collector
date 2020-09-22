@@ -18,5 +18,5 @@ Steps to use:
 4. after timer is up, the data will saved automatically and the touch screen will be enabled.
 *reopen the app to use it again*
 
-<img src="https://github.com/farhantandia/WearableSensorDataCollector/blob/master/Capture.PNG"/>
+<align="center", img src="https://github.com/farhantandia/WearableSensorDataCollector/blob/master/Capture.PNG"/>
 
