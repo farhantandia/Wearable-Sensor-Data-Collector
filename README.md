@@ -17,6 +17,7 @@ Steps to use:
 3. while recording, the touch screen automatically disable in order to prevent the accidental touch. (to make it enable manually pressed the physical bottom button)
 4. after timer is up, the data will saved automatically and the touch screen will be enabled.
 *reopen the app to use it again*
+<p align="center">
+<img src="https://github.com/farhantandia/WearableSensorDataCollector/blob/master/Capture.PNG"/>
 
-<align="center", img src="https://github.com/farhantandia/WearableSensorDataCollector/blob/master/Capture.PNG"/>
-
+</p>
