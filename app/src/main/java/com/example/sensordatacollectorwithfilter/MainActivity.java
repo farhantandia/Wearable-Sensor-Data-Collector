@@ -32,6 +32,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.ByteArrayInputStream;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -85,7 +87,7 @@ public class MainActivity extends FragmentActivity
     private Button mButtonReset;
     private boolean mTimerRunning;
 
-    private static final long START_TIME_IN_MILLIS= 90000; //1.5m
+    private static final long START_TIME_IN_MILLIS= 300000; //5m
     private long mTimeLeftInMillis = START_TIME_IN_MILLIS;
     Vibrator vibrator;
     @Override
@@ -199,6 +201,12 @@ public class MainActivity extends FragmentActivity
                     case 5:
                         activityInput = "backstroke";
                         break;
+                    case 6:
+                        activityInput = "crawl";
+                        break;
+                    case 7:
+                        activityInput = "butterfly";
+                        break;
                 }
             }
 
@@ -213,8 +221,11 @@ public class MainActivity extends FragmentActivity
             @Override
             public void onClick(View v) {
                 permission_to_record = true;
-                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+                if (record.getText() != "pause") {
+                    getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                }
 
                 vibrator.vibrate(500);
                 if (mTimerRunning) {
@@ -258,6 +269,37 @@ public class MainActivity extends FragmentActivity
 //
 //        }
 //    };
+    private Runnable mutiThread = new Runnable(){
+        public void run(){
+            long date2 = System.currentTimeMillis();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HH-mm-ss");
+            String dateString = sdf.format(date2);
+
+            String theFileName = "SmartWatch" + dateString + "_" + activityInput + ".csv";
+            String thePath = "/storage";
+            String theData = "DATE,TIME,ax,ay,az,gx,gy,gz,ma,mg,label\n" + modified_DATA;
+            InputStream theInput = new ByteArrayInputStream(theData.getBytes());
+
+            String FTP_result = FtpUtil.uploadFile("140.113.193.118", 21, "FTPAdmin",
+                    "hk4g4FTP", theFileName, thePath, theInput);
+
+            if (FTP_result != "true") {
+                File folder = context.getExternalFilesDir(thePath);
+                gpxfile = new File(folder, theFileName);
+                try {
+                    writer = new FileWriter(gpxfile);
+                    writer.write(theData);
+                    writer.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                    Toast.makeText(MainActivity.this, "File Not Found!", Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(MainActivity.this, "Error saving!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    };
 
     private void startTimer() {
         mCountDownTimer = new CountDownTimer(mTimeLeftInMillis, 1000) {
@@ -278,32 +320,14 @@ public class MainActivity extends FragmentActivity
                 Toast.makeText(MainActivity.this, "File Created & Saved", Toast.LENGTH_SHORT).show();
                 Toast.makeText(MainActivity.this, "Touch screen enabled", Toast.LENGTH_SHORT).show();
                 // File management
-                long date2 = System.currentTimeMillis();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HH-mm-ss");
-                String dateString = sdf.format(date2);
+
                 resetTimer();
 
-                File folder = context.getExternalFilesDir("/storage");
-                gpxfile = new File(folder, "SmartWatch"+dateString+"_"+activityInput+".csv");
-                try {
-                    writer = new FileWriter(gpxfile);
-
-                    String line = "DATE,TIME,ax,ay,az,gx,gy,gz,ma,mg,label\n";
-                    writer.write(line);
-
-                    writer.write(modified_DATA);
-                    writer.close();
-                }
-                catch(FileNotFoundException e){
-                    e.printStackTrace();
-                    Toast.makeText(MainActivity.this, "File Not Found!", Toast.LENGTH_SHORT).show();
-                }
-                catch (IOException e) {
-                    e.printStackTrace(); Toast.makeText(MainActivity.this, "Error saving!", Toast.LENGTH_SHORT).show();
-                }
+                Thread thread = new Thread(mutiThread);
+                thread.start();
 
                 vibrator.vibrate(1500);
-                Activity.getText().clear();
+                // Activity.getText().clear();
                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 mButtonStartPause.setText("Record");
                 mButtonStartPause.setVisibility(View.INVISIBLE);
@@ -328,6 +352,7 @@ public class MainActivity extends FragmentActivity
         updateCountDownText();
         mButtonReset.setVisibility(View.INVISIBLE);
         mButtonStartPause.setVisibility(View.VISIBLE);
+        newline = "";
     }
 
     private void updateCountDownText() {
