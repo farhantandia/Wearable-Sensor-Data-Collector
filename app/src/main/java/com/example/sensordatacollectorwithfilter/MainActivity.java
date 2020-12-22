@@ -87,7 +87,7 @@ public class MainActivity extends FragmentActivity
     private Button mButtonReset;
     private boolean mTimerRunning;
 
-    private static final long START_TIME_IN_MILLIS= 300000; //5m
+    private static final long START_TIME_IN_MILLIS= 90000; //5m
     private long mTimeLeftInMillis = START_TIME_IN_MILLIS;
     Vibrator vibrator;
     @Override
