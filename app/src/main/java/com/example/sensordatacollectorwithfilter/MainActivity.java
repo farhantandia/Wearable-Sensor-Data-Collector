@@ -87,7 +87,7 @@ public class MainActivity extends FragmentActivity
     private Button mButtonReset;
     private boolean mTimerRunning;
 
-    private static final long START_TIME_IN_MILLIS= 90000; //5m
+    private static final long START_TIME_IN_MILLIS= 60000; //5m
     private long mTimeLeftInMillis = START_TIME_IN_MILLIS;
     Vibrator vibrator;
     @Override
@@ -124,7 +124,7 @@ public class MainActivity extends FragmentActivity
         //create a list of items for the spinner.
         String[] items1 = new String[]{"20 dps", "25 dps", "30 dps"};
 //        String[] items2 = new String[]{"1.5 min", "2 min", "3 min"};
-        String[] items3 = new String[]{"walk", "stand", "jump","fall","breaststroke","backstroke","crawl","butterfly"};
+        String[] items3 = new String[]{"breaststroke","backstroke","crawl","PassiveDrowning","ActiveDrowning","walk", "stand", "jump","fall"};
         //create an adapter to describe how the items are displayed, adapters are used in several places in android.
         //There are multiple variations of this, but this is the basic variant.
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items1);
@@ -183,29 +183,33 @@ public class MainActivity extends FragmentActivity
 //
 //                record.setEnabled(!activityInput.isEmpty());
                 switch (position){
-                    case 0:
-                        activityInput = "walk";
-                        break;
+
                     case 1:
-                        activityInput = "stand";
-                        break;
-                    case 2:
-                        activityInput = "jump";
-                        break;
-                    case 3:
-                        activityInput = "fall";
-                        break;
-                    case 4:
                         activityInput = "breaststroke";
                         break;
-                    case 5:
+                    case 2:
                         activityInput = "backstroke";
                         break;
-                    case 6:
+                    case 3:
                         activityInput = "crawl";
                         break;
+                    case 4:
+                        activityInput = "PassiveDrowning";
+                        break;
+                    case 5:
+                        activityInput = "ActiveDrowning";
+                        break;
+                    case 6:
+                        activityInput = "walk";
+                        break;
                     case 7:
-                        activityInput = "butterfly";
+                        activityInput = "stand";
+                        break;
+                    case 8:
+                        activityInput = "jump";
+                        break;
+                    case 9:
+                        activityInput = "fall";
                         break;
                 }
             }
