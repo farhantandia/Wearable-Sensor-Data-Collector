@@ -184,31 +184,31 @@ public class MainActivity extends FragmentActivity
 //                record.setEnabled(!activityInput.isEmpty());
                 switch (position){
 
-                    case 1:
+                    case 0:
                         activityInput = "breaststroke";
                         break;
-                    case 2:
+                    case 1:
                         activityInput = "backstroke";
                         break;
-                    case 3:
+                    case 2:
                         activityInput = "crawl";
                         break;
-                    case 4:
+                    case 3:
                         activityInput = "PassiveDrowning";
                         break;
-                    case 5:
+                    case 4:
                         activityInput = "ActiveDrowning";
                         break;
-                    case 6:
+                    case 5:
                         activityInput = "walk";
                         break;
-                    case 7:
+                    case 6:
                         activityInput = "stand";
                         break;
-                    case 8:
+                    case 7:
                         activityInput = "jump";
                         break;
-                    case 9:
+                    case 8:
                         activityInput = "fall";
                         break;
                 }
